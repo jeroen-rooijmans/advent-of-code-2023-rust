@@ -5,31 +5,39 @@ use std::collections::BTreeMap;
 pub(crate) fn solve_part_one(input: &str) -> u32 {
     let mut input = input.lines();
     let instructions = input.next().unwrap().chars().cycle();
-    let mut network: BTreeMap<&str, (&str, &str)> = BTreeMap::new();
-    for line in input.skip(1) {
-        if let Some((node, neighbours)) = line.split_once(" = ").map(|(node, neighbours)| {
-            (
-                node,
-                neighbours[1..neighbours.len() - 1]
-                    .split_once(", ")
-                    .unwrap(),
+    let network: BTreeMap<&str, (&str, &str)> = input
+        .skip(1)
+        .filter_map(|line| {
+            line.split_once(" = ").map(|(node, neighbours)| {
+                (
+                    node,
+                    neighbours[1..neighbours.len() - 1]
+                        .split_once(", ")
+                        .unwrap(),
+                )
+            })
+        })
+        .collect();
+    instructions
+        .enumerate()
+        .try_fold("AAA", |current_node, (steps, instruction)| {
+            match instruction {
+                'L' => Some(network[current_node].0),
+                'R' => Some(network[current_node].1),
+                _ => None,
+            }
+            .map_or_else(
+                || panic!("Invalid instruction encountered!"),
+                |next_node| {
+                    if next_node == "ZZZ" {
+                        Err(steps as u32 + 1)
+                    } else {
+                        Ok(next_node)
+                    }
+                },
             )
-        }) {
-            network.insert(node, neighbours);
-        };
-    }
-    let mut current_node = "AAA";
-    for (steps, instruction) in instructions.enumerate() {
-        if current_node == "ZZZ" {
-            return steps as u32;
-        }
-        match instruction {
-            'L' => current_node = network[current_node].0,
-            'R' => current_node = network[current_node].1,
-            _ => panic!("Invalid instruction encountered!"),
-        }
-    }
-    panic!("Should have found node ZZZ by now!");
+        })
+        .unwrap_err()
 }
 
 #[cfg(test)]
