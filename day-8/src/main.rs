@@ -1,4 +1,4 @@
-// Advent of Code - Day 8:
+// Advent of Code - Day 8: Haunted Wasteland
 
 pub mod part1;
 pub mod part2;
