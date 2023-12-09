@@ -4,7 +4,7 @@ use std::collections::BTreeMap;
 
 pub(crate) fn solve_part_one(input: &str) -> u32 {
     let mut input = input.lines();
-    let instructions = input.next().unwrap().chars().cycle();
+    let instructions = input.next().unwrap();
     let network: BTreeMap<&str, (&str, &str)> = input
         .skip(1)
         .filter_map(|line| {
@@ -19,6 +19,8 @@ pub(crate) fn solve_part_one(input: &str) -> u32 {
         })
         .collect();
     instructions
+        .chars()
+        .cycle()
         .enumerate()
         .try_fold("AAA", |current_node, (steps, instruction)| {
             match instruction {
