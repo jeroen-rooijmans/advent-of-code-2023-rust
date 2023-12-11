@@ -1,4 +1,4 @@
-// Advent of Code - Day 10:
+// Advent of Code - Day 10: Pipe Maze
 
 pub mod part1;
 pub mod part2;
