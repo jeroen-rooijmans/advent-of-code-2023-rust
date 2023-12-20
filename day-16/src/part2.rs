@@ -1,4 +1,4 @@
-// Advent of Code - Day 15: The Floor Will Be Lava Part 2
+// Advent of Code - Day 16: The Floor Will Be Lava Part 2
 
 use crate::part1::count_energised_tiles;
 

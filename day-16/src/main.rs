@@ -1,4 +1,4 @@
-// Advent of Code - Day 15: Lens Library
+// Advent of Code - Day 16: The Floor Will Be Lava
 
 pub mod part1;
 pub mod part2;

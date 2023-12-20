@@ -1,4 +1,4 @@
-// Advent of Code - Day 15: The Floor Will Be Lava Part 1
+// Advent of Code - Day 16: The Floor Will Be Lava Part 1
 
 use std::collections::{HashSet, VecDeque};
 
