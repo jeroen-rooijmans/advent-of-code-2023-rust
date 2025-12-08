@@ -91,29 +91,30 @@ fn det3d(m: &[[Coord; 3]; 3]) -> Coord {
 
 fn gaussian_elimination_solver(m: &[[Coord; 3]; 3], b: &[Coord; 3]) -> Vector3d {
     let det_m = det3d(m);
-    if det_m == BigInt::from(0) {
-        panic!("Cannot solve singular matrix (det=0)");
-    }
+    assert!(
+        det_m != BigInt::from(0),
+        "Cannot solve singular matrix (det=0)"
+    );
 
     // Solve for Px
     let mut mx = m.clone();
-    mx[0][0] = b[0].clone();
-    mx[1][0] = b[1].clone();
-    mx[2][0] = b[2].clone();
+    mx[0][0].clone_from(&b[0]);
+    mx[1][0].clone_from(&b[1]);
+    mx[2][0].clone_from(&b[2]);
     let det_mx = det3d(&mx);
 
     // Solve for Py
     let mut my = m.clone();
-    my[0][1] = b[0].clone();
-    my[1][1] = b[1].clone();
-    my[2][1] = b[2].clone();
+    my[0][1].clone_from(&b[0]);
+    my[1][1].clone_from(&b[1]);
+    my[2][1].clone_from(&b[2]);
     let det_my = det3d(&my);
 
     // Solve for Pz
     let mut mz = m.clone();
-    mz[0][2] = b[0].clone();
-    mz[1][2] = b[1].clone();
-    mz[2][2] = b[2].clone();
+    mz[0][2].clone_from(&b[0]);
+    mz[1][2].clone_from(&b[1]);
+    mz[2][2].clone_from(&b[2]);
     let det_mz = det3d(&mz);
 
     // Divide by original determinant to get solution

@@ -2,7 +2,7 @@
 
 use std::collections::HashMap;
 
-fn roll_north(platform: &mut Vec<Vec<u8>>) {
+fn roll_north(platform: &mut [Vec<u8>]) {
     let mut finished = false;
     while !finished {
         finished = true;
@@ -18,7 +18,7 @@ fn roll_north(platform: &mut Vec<Vec<u8>>) {
     }
 }
 
-fn rotate_ccw(platform: &Vec<Vec<u8>>) -> Vec<Vec<u8>> {
+fn rotate_ccw(platform: &[Vec<u8>]) -> Vec<Vec<u8>> {
     let mut rotated_platform = vec![vec![0; platform.len()]; platform[0].len()];
     for row_idx in 0..rotated_platform.len() {
         for col_idx in 0..rotated_platform[0].len() {

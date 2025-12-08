@@ -17,10 +17,10 @@ pub(crate) fn solve_part_two(input: &str) -> u32 {
         for (column_idx, pipe) in row.iter().enumerate() {
             // count bits of ground when inside flag is true
             if !pipe_loop.contains(&(row_idx, column_idx)) {
-                inside_count += inside as u32
+                inside_count += u32::from(inside);
             // flip inside flag when encountering a pipe that connects to north in the pipe loop.
             } else if pipe[0] {
-                inside = !inside
+                inside = !inside;
             }
         }
     }

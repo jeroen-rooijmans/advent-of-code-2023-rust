@@ -92,7 +92,7 @@ pub(crate) fn solve_part_one(input: &str) -> u32 {
         })
         .unwrap();
     // farthest position is halfway down the loop
-    pipe_loop.len() as u32 / 2
+    u32::try_from(pipe_loop.len()).unwrap() / 2
 }
 
 #[cfg(test)]

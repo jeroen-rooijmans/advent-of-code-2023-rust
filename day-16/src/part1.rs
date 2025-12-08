@@ -18,7 +18,7 @@ fn starting_direction(grid: &[Vec<char>], position: (usize, usize), direction: c
 }
 
 pub(crate) fn count_energised_tiles(
-    grid: &Vec<Vec<char>>,
+    grid: &[Vec<char>],
     initial_position: (usize, usize),
     initial_direction: char,
 ) -> usize {

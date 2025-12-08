@@ -2,10 +2,10 @@
 
 use std::collections::{HashMap, VecDeque};
 
-fn find_start_pos(grid: &Vec<Vec<char>>) -> (usize, usize) {
-    for r in 0..grid.len() {
-        for c in 0..grid[0].len() {
-            if grid[r][c] == 'S' {
+fn find_start_pos(grid: &[Vec<char>]) -> (usize, usize) {
+    for (r, row) in grid.iter().enumerate() {
+        for (c, &ch) in row.iter().enumerate() {
+            if ch == 'S' {
                 return (r, c);
             }
         }
@@ -15,7 +15,7 @@ fn find_start_pos(grid: &Vec<Vec<char>>) -> (usize, usize) {
 
 /// Breadth-first search to calculate shortest path to every reachable plot
 fn bfs(
-    grid: &Vec<Vec<char>>,
+    grid: &[Vec<char>],
     start_pos: (usize, usize),
     max_steps: usize,
 ) -> HashMap<(usize, usize), usize> {
@@ -35,11 +35,11 @@ fn bfs(
             let nr = usize::try_from(dr + (r as isize)).unwrap();
             let nc = usize::try_from(dc + (c as isize)).unwrap();
 
-            if grid[nr][nc] != '#' {
-                if !distances.contains_key(&(nr, nc)) {
-                    distances.insert((nr, nc), dist + 1);
-                    queue.push_back((nr, nc));
-                }
+            if grid[nr][nc] != '#'
+                && let std::collections::hash_map::Entry::Vacant(e) = distances.entry((nr, nc))
+            {
+                e.insert(dist + 1);
+                queue.push_back((nr, nc));
             }
         }
     }

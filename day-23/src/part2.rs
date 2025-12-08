@@ -1,5 +1,10 @@
 // Advent of Code - Day 23: A Long Walk Part 2
+
 use std::collections::{HashMap, HashSet, VecDeque};
+
+type GridGraph = HashMap<(usize, usize), Vec<(usize, usize)>>;
+type ContractedEdge = ((usize, usize), usize);
+type ContractedGraph = HashMap<(usize, usize), Vec<ContractedEdge>>;
 
 fn find_neighbours(grid: &[Vec<char>], row_idx: usize, col_idx: usize) -> Vec<(usize, usize)> {
     [(-1, 0), (0, 1), (1, 0), (0, -1)]
@@ -29,10 +34,10 @@ fn find_neighbours(grid: &[Vec<char>], row_idx: usize, col_idx: usize) -> Vec<(u
 /// Nodes are junctions (start, goal and places with >= 3 neighbours)
 /// Edge weight is the length of the shortest path between the node junctions
 fn contract_graph(
-    grid_graph: &HashMap<(usize, usize), Vec<(usize, usize)>>,
+    grid_graph: &GridGraph,
     start: (usize, usize),
     goal: (usize, usize),
-) -> HashMap<(usize, usize), Vec<((usize, usize), usize)>> {
+) -> ContractedGraph {
     let mut nodes: HashSet<(usize, usize)> = HashSet::new();
     nodes.insert(start);
     nodes.insert(goal);
@@ -73,14 +78,14 @@ fn contract_graph(
 
 /// Finds the maximum path length for all paths from start to goal
 fn exhaustive_weighted_depth_first_search(
-    graph: &HashMap<(usize, usize), Vec<((usize, usize), usize)>>,
+    graph: &ContractedGraph,
     start: &(usize, usize),
     goal: &(usize, usize),
 ) -> usize {
     let mut max_length = 0;
 
     fn dfs_recursive(
-        graph: &HashMap<(usize, usize), Vec<((usize, usize), usize)>>,
+        graph: &ContractedGraph,
         current: &(usize, usize),
         goal: &(usize, usize),
         visited: &mut HashSet<(usize, usize)>,

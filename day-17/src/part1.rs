@@ -8,7 +8,7 @@ pub(crate) fn solve(input: &str) -> u32 {
         .lines()
         .map(|l| {
             l.chars()
-                .map(|c| c.to_digit(10).unwrap() as u32)
+                .map(|c| c.to_digit(10).unwrap())
                 .collect::<Vec<_>>()
         })
         .collect::<Vec<_>>();

@@ -1,4 +1,5 @@
 // Advent of Code - Day 24: Never Tell Me The Odds Part 1
+//
 use std::{ops::RangeInclusive, str::FromStr};
 
 #[allow(dead_code)]
@@ -67,13 +68,13 @@ impl Hailstone {
         let det = (self.vy * other.vx) - (self.vx * other.vy);
         if det == 0.0 {
             return None;
-        };
+        }
 
         let t1 = (other.vx * (other.py - self.py) - other.vy * (other.px - self.px)) / det;
         let t2 = (self.vx * (other.py - self.py) - self.vy * (other.px - self.px)) / det;
         if [t1, t2].iter().any(|t| t.is_sign_negative()) {
             return None;
-        };
+        }
 
         let x_intersect = self.px + t1 * self.vx;
         let y_intersect = self.py + t1 * self.vy;

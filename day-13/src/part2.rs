@@ -1,6 +1,6 @@
 // Advent of Code - Day 13: Point of Incidence Part 2
 
-fn find_horizontal_reflection(pattern: &Vec<&[u8]>) -> Option<usize> {
+fn find_horizontal_reflection(pattern: &[&[u8]]) -> Option<usize> {
     (0..pattern.len() - 1)
         .find(|&row_idx| {
             (0..=row_idx.min(pattern.len() - row_idx - 2))
@@ -19,7 +19,7 @@ fn find_horizontal_reflection(pattern: &Vec<&[u8]>) -> Option<usize> {
         .map(|n| n + 1)
 }
 
-fn find_vertical_reflection(pattern: &Vec<&[u8]>) -> Option<usize> {
+fn find_vertical_reflection(pattern: &[&[u8]]) -> Option<usize> {
     (0..pattern[0].len() - 1)
         .find(|&col_idx| {
             (0..=col_idx.min(pattern[0].len() - col_idx - 2))
